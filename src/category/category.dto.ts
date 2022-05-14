@@ -1,7 +1,5 @@
 export class CreateCategoryDto {
-  title: string;
-  description?: string;
-  price: number;
+  name: string;
 }
 
 export class UpdateCategoryDto extends CreateCategoryDto {
