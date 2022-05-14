@@ -12,6 +12,9 @@ export class Product {
   description?: string;
 
   @Prop()
+  price?: number;
+
+  @Prop()
   completedAt?: Date;
 
   @Prop({ required: true })

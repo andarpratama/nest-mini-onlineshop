@@ -1,42 +1,38 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Product, ProductDocument } from './product.model';
+import { CreateProductDto, UpdateProductDto } from './product.dto';
 
 @Injectable()
 export class ProductService {
-  findAll(): any {
-    const result = {
-      message: 'Success find all',
-    };
-    return result;
+  constructor(
+    @InjectModel(Product.name) private readonly model: Model<ProductDocument>,
+  ) {}
+
+  async findAll(): Promise<Product[]> {
+    return await this.model.find().exec();
   }
 
-  findOne(id: string): any {
-    const result = {
-      message: 'Success find one',
-      id: id,
-    };
-    return result;
+  async findOne(id: string): Promise<Product> {
+    return await this.model.findById(id).exec();
   }
 
-  create(): any {
-    const result = {
-      message: 'Success create one',
-    };
-    return result;
+  async create(createProductDto: CreateProductDto): Promise<Product> {
+    return await new this.model({
+      ...createProductDto,
+      createdAt: new Date(),
+    }).save();
   }
 
-  update(id: string): any {
-    const result = {
-      message: 'Success update one',
-      id: id,
-    };
-    return result;
+  async update(
+    id: string,
+    updateProductDto: UpdateProductDto,
+  ): Promise<Product> {
+    return await this.model.findByIdAndUpdate(id, updateProductDto).exec();
   }
 
-  delete(id: string): any {
-    const result = {
-      message: 'Success delete one',
-      id: id,
-    };
-    return result;
+  async delete(id: string): Promise<Product> {
+    return await this.model.findByIdAndDelete(id).exec();
   }
 }

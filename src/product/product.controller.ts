@@ -1,31 +1,44 @@
-import { Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
+import { CreateProductDto, UpdateProductDto } from './product.dto';
 import { ProductService } from './product.service';
 
-@Controller('product')
+@Controller('Product')
 export class ProductController {
   constructor(private readonly service: ProductService) {}
+
   @Get()
-  index() {
-    return this.service.findAll();
+  async index() {
+    return await this.service.findAll();
   }
 
   @Get(':id')
-  find(@Param('id') id: string) {
-    return this.service.findOne(id);
+  async find(@Param('id') id: string) {
+    return await this.service.findOne(id);
   }
 
   @Post()
-  create() {
-    return this.service.create();
+  async create(@Body() createProductDto: CreateProductDto) {
+    return await this.service.create(createProductDto);
   }
 
   @Put(':id')
-  update(@Param('id') id: string) {
-    return this.service.update(id);
+  async update(
+    @Param('id') id: string,
+    @Body() updateProductDto: UpdateProductDto,
+  ) {
+    return await this.service.update(id, updateProductDto);
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string) {
-    return this.service.delete(id);
+  async delete(@Param('id') id: string) {
+    return await this.service.delete(id);
   }
 }
