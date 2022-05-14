@@ -1,11 +1,9 @@
-export class BaseProductDto {
+export class CreateProductDto {
   title: string;
   description?: string;
   price: number;
 }
 
-export class CreateProductDto extends BaseProductDto {}
-
-export class UpdateProductDto extends BaseProductDto {
+export class UpdateProductDto extends CreateProductDto {
   completedAt: Date;
 }

@@ -2,15 +2,21 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 @Schema()
-export class Product {
+export class User {
   @Prop({ required: true })
-  title: string;
+  name: string;
+
+  @Prop({ required: true })
+  email: string;
+
+  @Prop({ required: true })
+  password: string;
 
   @Prop()
-  description?: string;
+  phone: number;
 
   @Prop()
-  price?: number;
+  address: string;
 
   @Prop()
   completedAt?: Date;
@@ -22,5 +28,5 @@ export class Product {
   deletedAt?: Date;
 }
 
-export const ProductSchema = SchemaFactory.createForClass(Product);
-export type ProductDocument = Product & Document;
+export const UserSchema = SchemaFactory.createForClass(User);
+export type UserDocument = User & Document;
