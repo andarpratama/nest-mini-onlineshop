@@ -1,18 +1,18 @@
 import {
-  Body,
   Controller,
-  Delete,
   Get,
   Param,
   Post,
+  Body,
   Put,
+  Delete,
 } from '@nestjs/common';
-import { CreateProductDto, UpdateProductDto } from './product.dto';
-import { ProductService } from './product.service';
+import { CreateCategoryDto, UpdateCategoryDto } from './category.dto';
+import { CategoryService } from './category.service';
 
-@Controller('Product')
-export class ProductController {
-  constructor(private readonly service: ProductService) {}
+@Controller('category')
+export class CategoryController {
+  constructor(private readonly service: CategoryService) {}
 
   @Get()
   async index() {
@@ -25,12 +25,12 @@ export class ProductController {
   }
 
   @Post()
-  async create(@Body() createDto: CreateProductDto) {
+  async create(@Body() createDto: CreateCategoryDto) {
     return await this.service.create(createDto);
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateDto: UpdateProductDto) {
+  async update(@Param('id') id: string, @Body() updateDto: UpdateCategoryDto) {
     return await this.service.update(id, updateDto);
   }
 
