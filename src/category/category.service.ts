@@ -1,37 +1,37 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Product, ProductDocument } from './product.model';
-import { CreateProductDto, UpdateProductDto } from './product.dto';
+import { CreateCategoryDto, UpdateCategoryDto } from './category.dto';
+import { Category, CategoryDocument } from './category.model';
 
 @Injectable()
-export class ProductService {
+export class CategoryService {
   constructor(
-    @InjectModel(Product.name) private readonly model: Model<ProductDocument>,
+    @InjectModel(Category.name) private readonly model: Model<CategoryDocument>,
   ) {}
 
-  async findAll(): Promise<Product[]> {
+  async findAll(): Promise<Category[]> {
     return await this.model.find().exec();
   }
 
-  async findOne(id: string): Promise<Product> {
+  async findOne(id: string): Promise<Category> {
     return await this.model.findById(id).exec();
   }
 
-  async create(createDto: CreateProductDto): Promise<Product> {
+  async create(createDto: CreateCategoryDto): Promise<Category> {
     return await new this.model({
       ...createDto,
       createdAt: new Date(),
     }).save();
   }
 
-  async update(id: string, updateDto: UpdateProductDto): Promise<Product> {
+  async update(id: string, updateDto: UpdateCategoryDto): Promise<Category> {
     return await this.model
       .findByIdAndUpdate(id, updateDto, { new: true })
       .exec();
   }
 
-  async delete(id: string): Promise<Product> {
+  async delete(id: string): Promise<Category> {
     return await this.model.findByIdAndDelete(id).exec();
   }
 }
